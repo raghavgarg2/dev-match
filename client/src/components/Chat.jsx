@@ -13,7 +13,6 @@ const Chat = () => {
   const user = useSelector((store) => store.user);
   const userId = user?._id;
 
-  // Ref for auto-scrolling
   const messagesEndRef = useRef(null);
 
   const fetchChatMessages = async () => {
@@ -125,7 +124,7 @@ const Chat = () => {
             <div className="chat-footer opacity-50">Seen</div>
           </div>
         ))}
-        {/* Invisible div to ensure auto-scrolling */}
+       
         <div ref={messagesEndRef} />
       </div>
       <div className="p-5 border-t border-gray-600 flex items-center gap-2">

@@ -20,7 +20,7 @@ const EditProfile = ({ user }) => {
   const navigate = useNavigate();
 
   const saveProfile = async () => {
-  setError(""); // Clear previous errors
+  setError(""); 
 
   try {
     console.log("📤 Sending request to:", BASE_URL + "/profile/edit");
@@ -42,7 +42,7 @@ const EditProfile = ({ user }) => {
   } catch (err) {
     console.error("❌ Error:", err);
 
-    // Better error messages
+   
     if (err.response) {
       setError(err.response.data?.message || "Failed to save profile.");
     } else if (err.request) {
@@ -109,7 +109,7 @@ const EditProfile = ({ user }) => {
                   />
                 </label>
 
-                {/* Gender Dropdown */}
+               
                 <label className="form-control w-full max-w-xs my-2">
                   <div className="label">
                     <span className="label-text">Gender:</span>
@@ -152,7 +152,7 @@ const EditProfile = ({ user }) => {
         />
       </div>
 
-      {/* Toast Notification */}
+  
       {showToast && (
         <div className="fixed top-5 left-1/2 transform -translate-x-1/2">
           <div className="alert alert-success">
