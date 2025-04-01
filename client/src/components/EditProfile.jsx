@@ -20,38 +20,37 @@ const EditProfile = ({ user }) => {
   const navigate = useNavigate();
 
   const saveProfile = async () => {
-  setError(""); 
+    setError("");
 
-  try {
-    console.log("📤 Sending request to:", BASE_URL + "/profile/edit");
+    try {
+      console.log("📤 Sending request to:", BASE_URL + "/profile/edit");
 
-    const res = await axios.patch(
-      `${BASE_URL}/profile/edit`,
-      { firstName, lastName, photoUrl, age, gender, about },
-      { withCredentials: true }
-    );
+      const res = await axios.patch(
+        `${BASE_URL}/profile/edit`,
+        { firstName, lastName, photoUrl, age, gender, about },
+        { withCredentials: true }
+      );
 
-    console.log("✅ Response:", res?.data);
-    dispatch(addUser(res?.data?.data));
+      console.log("✅ Response:", res?.data);
+      dispatch(addUser(res?.data?.data));
 
-    setShowToast(true);
-    setTimeout(() => {
-      setShowToast(false);
-      navigate("/");
-    }, 1000);
-  } catch (err) {
-    console.error("❌ Error:", err);
+      setShowToast(true);
+      setTimeout(() => {
+        setShowToast(false);
+        navigate("/");
+      }, 1000);
+    } catch (err) {
+      console.error("❌ Error:", err);
 
-   
-    if (err.response) {
-      setError(err.response.data?.message || "Failed to save profile.");
-    } else if (err.request) {
-      setError("🚫 No response from server. Check API.");
-    } else {
-      setError("⚠️ Unexpected error occurred.");
+      if (err.response) {
+        setError(err.response.data?.message || "Failed to save profile.");
+      } else if (err.request) {
+        setError("🚫 No response from server. Check API.");
+      } else {
+        setError("⚠️ Unexpected error occurred.");
+      }
     }
-  }
-};
+  };
 
   return (
     <>
@@ -109,20 +108,26 @@ const EditProfile = ({ user }) => {
                   />
                 </label>
 
-               
                 <label className="form-control w-full max-w-xs my-2">
                   <div className="label">
                     <span className="label-text">Gender:</span>
                   </div>
                   <select
                     value={gender}
-                    onChange={(e) => setGender(e.target.value)}
+                    onChange={(e) =>
+                      setGender(
+                        e.target.value.charAt(0).toUpperCase() +
+                          e.target.value.slice(1)
+                      )
+                    }
                     className="select select-bordered w-full max-w-xs"
                   >
-                    <option value="" disabled>Select Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
+                    <option value="" disabled>
+                      Select Gender
+                    </option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
                   </select>
                 </label>
 
@@ -148,11 +153,18 @@ const EditProfile = ({ user }) => {
           </div>
         </div>
         <UserCard
-          user={{ firstName, lastName, photoUrl, age, gender, about, showButtons: false }}
+          user={{
+            firstName,
+            lastName,
+            photoUrl,
+            age,
+            gender,
+            about,
+            showButtons: false,
+          }}
         />
       </div>
 
-  
       {showToast && (
         <div className="fixed top-5 left-1/2 transform -translate-x-1/2">
           <div className="alert alert-success">
