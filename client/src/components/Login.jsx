@@ -8,8 +8,8 @@ import { setLoading } from "../utils/loaderSlice";
 import Loader from "./Loader"
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("");
-  const [password, setPassword] = useState("");
+  const [emailId, setEmailId] = useState("john@gmail.com");
+  const [password, setPassword] = useState("Eafgac@123");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [isLoginForm, setIsLoginForm] = useState(true);
