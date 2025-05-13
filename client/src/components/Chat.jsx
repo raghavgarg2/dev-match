@@ -13,7 +13,7 @@ const Chat = () => {
   const user = useSelector((store) => store.user);
   const userId = user?._id;
 
-  const messagesEndRef = useRef(null);
+  const messagesEndRef = useRef(null); 
 
   const fetchChatMessages = async () => {
     try {
@@ -48,7 +48,7 @@ const Chat = () => {
     const socket = createSocketConnection();
     console.log("🔌 Connecting socket...");
 
-    // Join Chat
+ 
     socket.emit("joinChat", {
       firstName: user.firstName,
       userId,
@@ -61,7 +61,7 @@ const Chat = () => {
       targetUserId,
     });
 
-    // Listen for new messages
+
     socket.on("messageReceived", ({ firstName, lastName, text }) => {
       console.log("📩 Message received from server:", { firstName, lastName, text });
       setMessages((messages) => [...messages, { firstName, lastName, text }]);
@@ -73,7 +73,7 @@ const Chat = () => {
     };
   }, [userId, targetUserId]);
 
-  // Scroll to bottom when messages update
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -104,7 +104,7 @@ const Chat = () => {
     setNewMessage("");
   };
 
-return (
+  return (
     <div className="w-3/4 mx-auto border border-gray-600 m-5 h-[70vh] flex flex-col">
       <h1 className="p-5 border-b border-gray-600">Chat</h1>
 
@@ -122,7 +122,7 @@ return (
             <div className="chat-bubble">{msg.text}</div>
           </div>
         ))}
-        <div ref={chatEndRef} />
+        <div ref={messagesEndRef} /> 
       </div>
 
       <div className="p-5 border-t border-gray-600 flex items-center gap-2">
@@ -141,4 +141,3 @@ return (
 };
 
 export default Chat;
-
